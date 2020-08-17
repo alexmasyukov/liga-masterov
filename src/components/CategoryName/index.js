@@ -43,7 +43,7 @@ const CategoryName = ({
   const { config, handlers } = useContext(CommonContext)
   const [isEdit, setIsEdit] = useState(false)
   const [name, setName] = useState(initialName)
-  const [editLinkVisible, setEditLinkVisible] = useState(true)
+  const [editLinkVisible, setEditLinkVisible] = useState(false)
   const [description, setDescription] = useState(initialDescription)
   const [pid, setPid] = useState(initialPid)
   const [image] = images
@@ -86,7 +86,7 @@ const CategoryName = ({
            />
          </div>
        </div>
-       <div className={styles.row}>
+       <div className={cn(styles.row, styles.aic)}>
          {config.category.filelds.description && (
             <div className={styles.col}>
               <p>Описание</p>
@@ -99,27 +99,31 @@ const CategoryName = ({
             </div>
          )}
          {config.category.filelds.image && (
-            <div className={styles.col}>
-              <div className={cn(styles.image, styles.bigImage)}>
-                {image && (
-                   <img src={config.getImage(image[0])} alt=''/>
-                )}
+            <>
+              <div className={styles.col}>
+                <div className={cn(styles.image, styles.bigImage)}>
+                  {image && (
+                     <img src={config.getImage(image[0])} alt=''/>
+                  )}
+                </div>
               </div>
-              <FileInput
-                 onUpload={handlers.onCategoryAddImage(categoryId)}
-                 uploadUrl={config.uploadImageUrl}
-              >
-                {(loading, onClick) =>
-                   loading ? (
-                      <AiOutlineLoading className={styles.iconSpin}/>
-                   ) : (
-                      <Btn
-                         onClick={onClick}
-                         title="Загрузить изображение"
-                      />
-                   )}
-              </FileInput>
-            </div>
+              <div className={styles.col}>
+                <FileInput
+                   onUpload={handlers.onCategoryAddImage(categoryId)}
+                   uploadUrl={config.uploadImageUrl}
+                >
+                  {(loading, onClick) =>
+                     loading ? (
+                        <AiOutlineLoading className={styles.iconSpin}/>
+                     ) : (
+                        <Btn
+                           onClick={onClick}
+                           title="Сменить изображение"
+                        />
+                     )}
+                </FileInput>
+              </div>
+            </>
          )}
          <div className={styles.col}>
            <Btn onClick={handleSaveClick} title="Сохранить"/>
