@@ -253,3 +253,23 @@ textarea
 
 .editLink
   margin-left: 25px
+
+.appBtns
+  display: flex
+  justify-content: space-between
+  margin: 0 15px 30px 15px
+  padding: 10px 0
+  border-bottom: 1px solid #f1f1f1
+  h1
+    margin: 0
+    font-weight: bold
+    font-size: 30px
+  .btn
+    +transition
+    background: $hoverColor
+    color: #ffffff
+    padding: 5px 10px 7px 10px
+    +borderRadius(5px)
+    &:hover
+      text-decoration: none
+      background: deepskyblue

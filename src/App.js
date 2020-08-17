@@ -7,6 +7,7 @@ import { AiOutlineLoading } from "react-icons/ai"
 import styles from "components/Editor/editor.module.sass"
 import { ACTION_TYPES } from "store/actionTypes"
 import './app.module.sass'
+import Btn from "components/Btn"
 
 const baseUrl = 'https://xn----7sbitok.xn--p1ai'
 
@@ -58,7 +59,7 @@ const columns = [
     type: COLUMN_TYPES.NUMBER,
     name: 'def_count',
     default: 1
-  },
+  }
   // {
   //   id: 16,
   //   title: 'Товар недели',
@@ -218,6 +219,12 @@ function App() {
 
   return (
      <div className="App">
+       {!state.loading && (
+          <div className={styles.appBtns}>
+            <h1>Прайс-лист</h1>
+            <Btn title="Сохранить"/>
+          </div>
+       )}
        {state.error && <h3>{state.error}</h3>}
        {state.loading ? (
           <div className={styles.loading}>
