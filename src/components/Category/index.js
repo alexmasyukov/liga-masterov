@@ -65,17 +65,19 @@ const Category = ({
              {config.category.child && <>{addChildCategoryButton}{' | '}</>}
            </>}
            {config.category.delete && <>{deleteCategoryButton}{' | '}</>}
-           <Btn
-              title="Вверх"
-              onClick={handlers.onCategoryMoveUp(idx)}
-              className={cn(!visibleMoveUp && styles.empty)}
-           />
-           {' | '}
-           <Btn
-              title="Вниз"
-              onClick={handlers.onCategoryMoveDown(idx)}
-              className={cn(!visibleMoveDown && styles.empty)}
-           />
+           {config.category.move && <>
+             <Btn
+                title="Вверх"
+                onClick={handlers.onCategoryMoveUp(idx)}
+                className={cn(!visibleMoveUp && styles.empty)}
+             />
+             {' | '}
+             <Btn
+                title="Вниз"
+                onClick={handlers.onCategoryMoveDown(idx)}
+                className={cn(!visibleMoveDown && styles.empty)}
+             />
+           </>}
          </div>
        </div>
 

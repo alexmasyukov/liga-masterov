@@ -101,20 +101,20 @@ const initialConfig = {
   getImage: (img) => `${baseUrl}/sync/${img}`,
   uploadImageUrl: `${baseUrl}/cms/pages/db_orders/get_img_test.php`,
   category: {
-    add: false,
-    edit: false,
-    delete: false,
-    move: false,
-    child: false,
+    add: true,
+    edit: true,
+    delete: true,
+    move: true,
+    child: true,
     // filelds: {
     //   description: true,
     //   image: true
     // }
   },
   row: {
-    add: false,
-    delete: false,
-    // move: false
+    add: true,
+    delete: true,
+    move: true
   }
 }
 

@@ -1,7 +1,10 @@
 import React, { useContext } from 'react'
 import { ColumnsContext } from "components/ColumnsContext"
 import Cell from "components/Cell"
+import { CommonContext } from "components/CommonContext"
 import CellMoveButtons from "components/CellMoveButtons"
+import CellDeleteButton from "components/CellDeleteButton"
+import styles from "components/Editor/editor.module.sass"
 
 const Row = ({
                id,
@@ -13,6 +16,7 @@ const Row = ({
                downVisible
              }) => {
   const columns = useContext(ColumnsContext)
+  const { config } = useContext(CommonContext)
 
   return (
      <tr>
@@ -29,13 +33,19 @@ const Row = ({
          )
        })}
        <td>
-         <CellMoveButtons
-            upVisible={upVisible}
-            downVisible={downVisible}
-            onRowMoveDown={onRowMoveDown}
-            onRowMoveUp={onRowMoveUp}
-            onRowRemove={onRowRemove}
-         />
+         <div className={styles.cellButtons}>
+           {config.row.move && (
+              <CellMoveButtons
+                 upVisible={upVisible}
+                 downVisible={downVisible}
+                 onRowMoveDown={onRowMoveDown}
+                 onRowMoveUp={onRowMoveUp}
+              />
+           )}
+           {config.row.delete && (
+              <CellDeleteButton onRowRemove={onRowRemove}/>
+           )}
+         </div>
        </td>
      </tr>
   )
