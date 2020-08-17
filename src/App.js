@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import Editor from "components/Editor"
 import { COLUMN_TYPES } from "constants/common"
 import { createCounter } from "helpers"
@@ -9,9 +9,11 @@ import { ACTION_TYPES } from "store/actionTypes"
 import './app.module.sass'
 
 const baseUrl = 'https://xn----7sbitok.xn--p1ai'
-const style = {
-  textAlign: 'center'
-}
+
+// const style = {
+//   textAlign: 'center'
+// }
+
 const columns = [
   {
     id: 1,
@@ -106,10 +108,10 @@ const initialConfig = {
     delete: true,
     move: true,
     child: true,
-    // filelds: {
-    //   description: true,
-    //   image: true
-    // }
+    filelds: {
+      description: false,
+      image: true
+    }
   },
   row: {
     add: true,

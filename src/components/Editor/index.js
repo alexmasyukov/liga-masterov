@@ -172,6 +172,14 @@ const Editor = ({ data, config = initialConfig, onChange }) => {
     })
   }
 
+  const handleCategoryAddImage = (cid) => (image) =>
+    dispatch({
+      type: ACTION_TYPES.ADD_CATEGORY_IMAGE,
+      cid,
+      image
+    })
+
+
 
   const getRowsByCategoryId = (cid) =>
      rows.filter(row => row.cid === cid)
@@ -193,7 +201,8 @@ const Editor = ({ data, config = initialConfig, onChange }) => {
            onAddChildCategory: handleAddChildCategory,
            onChangeCategory: handleChangeCategory,
            onImageMoveLeft: handleImageMoveLeft,
-           onAddImage: onAddImage
+           onAddImage: onAddImage,
+           onCategoryAddImage: handleCategoryAddImage,
          }
        }}>
          <CategoriesProvider value={categories}>

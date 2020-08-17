@@ -12,6 +12,7 @@ const Category = ({
                     name = '',
                     path = '',
                     description = '',
+                    images = [],
                     id,
                     pid,
                     idx,
@@ -54,6 +55,7 @@ const Category = ({
             categoryParentId={pid}
             name={name}
             path={path}
+            images={images}
             description={description}
             count={rows.length}
             onChange={handlers.onChangeCategory}

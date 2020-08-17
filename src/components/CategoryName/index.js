@@ -3,6 +3,8 @@ import cn from 'classnames'
 import Btn from "components/Btn"
 import { CategoriesContext } from "components/CategoriesContext"
 import { CommonContext } from "components/CommonContext"
+import FileInput from "components/FileInput"
+import { AiOutlineLoading } from "react-icons/ai"
 import styles from 'components/Editor/editor.module.sass'
 
 const ParentCategorySelector = ({
@@ -34,15 +36,17 @@ const CategoryName = ({
                         description: initialDescription,
                         path = '',
                         count = 0,
+                        images = [],
                         onChange,
                         onClick
                       }) => {
-  const { config } = useContext(CommonContext)
+  const { config, handlers } = useContext(CommonContext)
   const [isEdit, setIsEdit] = useState(false)
   const [name, setName] = useState(initialName)
-  const [editLinkVisible, setEditLinkVisible] = useState(false)
+  const [editLinkVisible, setEditLinkVisible] = useState(true)
   const [description, setDescription] = useState(initialDescription)
   const [pid, setPid] = useState(initialPid)
+  const [image] = images
 
   const handleNameClick = () => {
     setIsEdit(true)
@@ -60,6 +64,9 @@ const CategoryName = ({
 
   return isEdit ? (
      <div className={styles.categoryEditor}>
+       <div className={styles.col}>
+         <h2 className={styles.name}>Редактирование категории "{initialName}"</h2>
+       </div>
        <div className={styles.row}>
          <div className={styles.col}>
            <p>Родительская категория</p>
@@ -80,15 +87,40 @@ const CategoryName = ({
          </div>
        </div>
        <div className={styles.row}>
-         <div className={styles.col}>
-           <p>Описание</p>
-           <textarea
-              className={cn(styles.edit, styles.desc)}
-              onChange={({ target: { value } }) => setDescription(value)}
-              rows={4}
-              defaultValue={description}
-           />
-         </div>
+         {config.category.filelds.description && (
+            <div className={styles.col}>
+              <p>Описание</p>
+              <textarea
+                 className={cn(styles.edit, styles.desc)}
+                 onChange={({ target: { value } }) => setDescription(value)}
+                 rows={4}
+                 defaultValue={description}
+              />
+            </div>
+         )}
+         {config.category.filelds.image && (
+            <div className={styles.col}>
+              <div className={cn(styles.image, styles.bigImage)}>
+                {image && (
+                   <img src={config.getImage(image[0])} alt=''/>
+                )}
+              </div>
+              <FileInput
+                 onUpload={handlers.onCategoryAddImage(categoryId)}
+                 uploadUrl={config.uploadImageUrl}
+              >
+                {(loading, onClick) =>
+                   loading ? (
+                      <AiOutlineLoading className={styles.iconSpin}/>
+                   ) : (
+                      <Btn
+                         onClick={onClick}
+                         title="Загрузить изображение"
+                      />
+                   )}
+              </FileInput>
+            </div>
+         )}
          <div className={styles.col}>
            <Btn onClick={handleSaveClick} title="Сохранить"/>
          </div>
@@ -96,11 +128,19 @@ const CategoryName = ({
      </div>
   ) : (
      <div
+        onClick={onClick}
         className={styles.title}
         onMouseEnter={() => setEditLinkVisible(true)}
         onMouseLeave={() => setEditLinkVisible(false)}
      >
-       <div onClick={onClick}>
+       {config.category.filelds.image && (
+          <div className={styles.image}>
+            {image && (
+               <img src={config.getImage(image[0])} alt=''/>
+            )}
+          </div>
+       )}
+       <div>
          {path}
          {count > 0 && <span>{count} услуг</span>}
        </div>
