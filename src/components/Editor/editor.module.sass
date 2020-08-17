@@ -1,0 +1,237 @@
+@import './_base.sass'
+
+$hoverColor: #2a78f6
+
+.catalog
+  margin-top: 15px
+  font-size: 14px
+
+.block
+  padding: 0 15px 0 15px
+  display: flex
+  flex-wrap: wrap
+  //margin-bottom: 25px
+  justify-content: flex-end
+  .btn:last-of-type
+    padding-right: 0
+
+.category
+  display: flex
+  width: 100%
+  justify-content: space-between
+  margin-bottom: 10px
+  .title
+    +transition()
+    display: flex
+    align-items: center
+    font-size: 18px
+    font-weight: bold
+    cursor: pointer
+    &:hover
+      color: $hoverColor
+    span
+      font-weight: normal
+      font-size: 15px
+      margin-left: 15px
+    svg
+      color: inherit
+      margin-left: 15px
+      width: 20px
+      height: 20px
+    .editLink
+      text-decoration: underline
+      font-weight: normal
+
+.mb
+  margin: 10px 0
+
+.products
+  width: 100%
+  border-collapse: collapse
+  margin-bottom: 5px
+  th, td
+    border: 1px solid #eee
+    padding: 10px 10px
+  th
+    padding: 6px 10px
+    background-color: #eee
+    font-size: 14px
+    color: #000
+    border: 0
+    text-align: center
+    line-height: 14px
+    //font-weight: normal
+  tr:nth-child(even)
+    background-color: #f9f9f9
+  tr:hover
+    background-color: #f4f4f4
+    td
+      border-right: 1px solid #d4ebf2
+      border-left: 1px solid #d4ebf2
+
+
+.btns
+  &>div
+    display: inline-block
+
+.btn
+  border-radius: 4px
+  padding: 4px 8px
+  font-size: 14px
+  cursor: pointer
+  align-self: flex-end
+  &:hover
+    text-decoration: underline
+
+.editCell
+  padding: 0 !important
+
+.edit
+  width: 100%
+  padding: 10px 10px !important
+  margin: 0
+  border: 0
+  box-sizing: border-box !important
+  -moz-box-sizing: border-box !important
+  -webkit-box-sizing: border-box !important
+  font-size: 14px
+
+.cellButtons
+  display: flex
+  svg
+    +transition()
+    width: 20px
+    height: 20px
+    margin-right: 15px
+    &:last-of-type
+      margin-right: 0 !important
+    &:hover
+      color: $hoverColor
+      cursor: pointer
+
+.empty
+  visibility: hidden
+  opacity: 0 !important
+
+.categoryEditor
+  font-size: 14px
+  //display: flex
+  //flex-wrap: wrap
+  //align-items: flex-end
+  color: #333
+  margin-bottom: 15px
+  p
+    margin: 0
+    font-weight: bold
+  //&>div
+  //  margin-left: 15px
+  //  &:first-of-type
+  //    margin-left: 0
+  input, select
+    margin-top: 5px
+    padding: 10px
+    font-size: 14px
+    border: 1px solid #aaa
+    border-radius: 3px
+  .row
+    display: flex
+    align-items: flex-end
+    width: 100%
+    margin-bottom: 10px
+    .col
+      margin-left: 15px
+      &:first-of-type
+        margin-left: 0
+  .desc
+    border: 1px solid #aaa
+    padding: 5px 10px !important
+    width: 421px
+    margin-top: 5px
+    +borderRadius(4px)
+  .edit
+    min-width: 250px !important
+  .btn
+    text-decoration: underline
+
+.btnNewCategory
+  padding: 5px 0 20px 0
+  margin-left: 15px
+
+.images
+  display: flex
+  justify-content: flex-end
+  .img
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+    margin: 1px 4px 1px 0
+    width: 40px
+    height: 40px
+    background: #eee
+    overflow: hidden
+    &:last-of-type
+      margin-right: 0
+    img
+      width: 100%
+
+.btnImgMoveLayer
+  position: relative
+  +transition()
+  &:after
+    position: absolute
+    display: none
+    content: ''
+    height: 100%
+    width: 100%
+    background: $hoverColor
+    z-index: 99
+    opacity: .6
+  &:hover
+    +transform(scale(1))
+    +filter(saturate(300%))
+    &:after
+      cursor: pointer
+      display: block
+    svg
+      display: block
+
+.btnImageLeft
+  position: absolute
+  display: none
+  width: 100%
+  height: 100%
+  z-index: 100
+  cursor: pointer
+  color: #fff
+
+.btnImgageUpload
+  background: none !important
+  svg
+    width: 22px
+    height: 22px
+    +transition
+    cursor: pointer
+    &:hover
+      color: $hoverColor
+
+.noWrap
+  white-space: nowrap
+
+.iconSpin
+  +iconSpin
+
+.loading
+  display: flex
+  justify-content: center
+  margin-top: 30px
+  font-size: 25px
+
+.w100
+  width: 100%
+
+textarea
+  font: 400 13.3333px Arial
+
+.editLink
+  margin-left: 25px
