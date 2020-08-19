@@ -36,7 +36,7 @@ const prepareData = (data) => {
 }
 
 
-const Editor = ({ data, config = initialConfig, onChange }) => {
+const Editor = ({ data, config = initialConfig, onChange = () => {} }) => {
   const [state, dispatch] = useReducer(reducer, prepareData({ ...initialState, ...data }))
   const { columns, rows, categories } = state
   onChange(state)
@@ -231,4 +231,4 @@ const Editor = ({ data, config = initialConfig, onChange }) => {
   )
 }
 
-export default Editor
+export default React.memo(Editor)

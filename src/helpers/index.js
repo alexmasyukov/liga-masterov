@@ -46,8 +46,6 @@ export const getCategoryPath = (id, categories = [], init = []) => {
 export const setCategoriesPaths = (categories) => {
   const getPath = (id) => getCategoryPath(id, categories)
 
-  console.log(categories)
-
   return categories.map(category => ({
     ...category,
     path: getPath(category.id)

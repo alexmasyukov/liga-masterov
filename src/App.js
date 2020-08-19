@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
 import Editor from "components/Editor"
 import { COLUMN_TYPES } from "constants/common"
 import { createCounter } from "helpers"
@@ -123,6 +123,7 @@ const initialConfig = {
 
 const initialState = {
   loading: false,
+  saving: false,
   config: initialConfig,
   data: {
     columns: [],
@@ -138,6 +139,7 @@ const reducer = (state, action) => {
       return {
         ...initialState,
         loading: true,
+        saving: false,
         error: false
       }
 
@@ -153,6 +155,7 @@ const reducer = (state, action) => {
           cidCounter: createCounter(lastCid + 1)
         },
         loading: false,
+        saving: false,
         error: false
       }
 
@@ -160,7 +163,29 @@ const reducer = (state, action) => {
       return {
         ...initialState,
         loading: false,
+        saving: false,
         error: 'error'
+      }
+
+    case ACTION_TYPES.SAVE_DATA_REQUEST:
+      return {
+        ...state,
+        saving: true,
+        error: false
+      }
+
+    case ACTION_TYPES.SAVE_DATA_SUCCESS:
+      return {
+        ...state,
+        saving: false,
+        error: false
+      }
+
+    case ACTION_TYPES.SAVE_DATA_FAILURE:
+      return {
+        ...state,
+        saving: false,
+        error: 'Ошибка сохранения каталога'
       }
 
     default:
@@ -171,9 +196,11 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
+  let fullData = {}
 
   const handleOnChange = (data) => {
-    // console.log('handleOnChange', data)
+    fullData = data
+    console.log('handleOnChange', fullData)
   }
 
   const fetchData = async () => {
@@ -217,15 +244,43 @@ function App() {
   }, [])
 
 
+  const handleSave = async () => {
+    dispatch({
+      type: ACTION_TYPES.SAVE_DATA_REQUEST
+    })
+
+    try {
+      const result = await axios.post(`${baseUrl}/api/v1/catalog/save.php`, {
+        data: fullData
+      })
+      console.log(result)
+      dispatch({
+        type: ACTION_TYPES.SAVE_DATA_SUCCESS
+      })
+    } catch (e) {
+      console.log('save save', e)
+      dispatch({
+        type: ACTION_TYPES.SAVE_DATA_FAILURE
+      })
+    }
+  }
+
+
   return (
      <div className="App">
        {!state.loading && (
           <div className={styles.appBtns}>
             <h1>Прайс-лист</h1>
-            <Btn title="Сохранить"/>
+            {state.error && <h1 className={styles.error}>{state.error}</h1>}
+            <Btn onClick={handleSave}>
+              {state.saving ? (
+                 <AiOutlineLoading className={styles.iconSpin}/>
+              ) : (
+                 'Сохранить'
+              )}
+            </Btn>
           </div>
        )}
-       {state.error && <h3>{state.error}</h3>}
        {state.loading ? (
           <div className={styles.loading}>
             <AiOutlineLoading className={styles.iconSpin}/>

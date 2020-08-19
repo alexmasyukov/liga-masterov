@@ -257,6 +257,7 @@ textarea
 .appBtns
   display: flex
   justify-content: space-between
+  align-items: center
   margin: 0 15px 30px 15px
   padding: 10px 0
   border-bottom: 1px solid #f1f1f1
@@ -268,8 +269,12 @@ textarea
     +transition
     background: $hoverColor
     color: #ffffff
-    padding: 5px 10px 7px 10px
+    padding: 7px 10px 7px 10px
     +borderRadius(5px)
     &:hover
       text-decoration: none
-      background: deepskyblue
+      background: dodgerblue
+
+.error
+  color: orangered
+  font-size: 18px !important
