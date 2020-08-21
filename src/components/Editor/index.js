@@ -29,14 +29,25 @@ const initialState = {
 
 
 const prepareData = (data) => {
+  // Сортируем по категориям, чтобы правильно работали кнопки
+  // перемещения строки вверх/вниз
+  // (чтобы правильно расположились индексы строк)
+  const rows = data.categories.reduce((rows, { id }) => {
+    const rowsByCategory = data.rows.filter(row => row.cid === id)
+    return [...rows, ...rowsByCategory]
+  }, [])
+
   return {
     ...data,
+    rows,
     categories: setCategoriesPaths(data.categories)
   }
 }
 
 
-const Editor = ({ data, config = initialConfig, onChange = () => {} }) => {
+const Editor = ({
+                  data, config = initialConfig, onChange = () => {}
+                }) => {
   const [state, dispatch] = useReducer(reducer, prepareData({ ...initialState, ...data }))
   const { columns, rows, categories } = state
   onChange(state)
@@ -163,22 +174,21 @@ const Editor = ({ data, config = initialConfig, onChange = () => {} }) => {
     }
   }
 
-  const onAddImage = (rowId, colKey) => (image) => {
-    dispatch({
-      type: ACTION_TYPES.ADD_IMAGE,
-      rowId,
-      colKey,
-      image
-    })
-  }
+  const onAddImage = (rowId, colKey) => (image) =>
+     dispatch({
+       type: ACTION_TYPES.ADD_IMAGE,
+       rowId,
+       colKey,
+       image
+     })
 
-  const handleCategoryAddImage = (cid) => (image) =>
-    dispatch({
-      type: ACTION_TYPES.ADD_CATEGORY_IMAGE,
-      cid,
-      image
-    })
 
+  const handleCategoryAddImage = (categoryId) => (images) =>
+     dispatch({
+       type: ACTION_TYPES.ADD_CATEGORY_IMAGE,
+       id: categoryId,
+       images
+     })
 
 
   const getRowsByCategoryId = (cid) =>
@@ -202,7 +212,7 @@ const Editor = ({ data, config = initialConfig, onChange = () => {} }) => {
            onChangeCategory: handleChangeCategory,
            onImageMoveLeft: handleImageMoveLeft,
            onAddImage: onAddImage,
-           onCategoryAddImage: handleCategoryAddImage,
+           onCategoryAddImage: handleCategoryAddImage
          }
        }}>
          <CategoriesProvider value={categories}>

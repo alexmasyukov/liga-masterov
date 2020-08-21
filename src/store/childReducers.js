@@ -57,6 +57,13 @@ export const withNewCategory = (id, { categories }) =>
      getNewCategory(id)
    ])
 
+export const withAddImageInCategory = (id, images, { categories }) =>
+   setCategoriesPaths(
+      categories.map((category) =>
+        category.id === id ?  { ...category, images: [images] } : category
+      )
+   )
+
 
 export const withUpdatedCategory = (updatedCategory, { categories }) => {
   const updated = categories.map(category =>

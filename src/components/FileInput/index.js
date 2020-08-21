@@ -6,6 +6,8 @@ const FileInput = ({ children, uploadUrl, onUpload }) => {
   const [loading, setLoading] = useState(false)
   const fileInput = useRef(null)
 
+  console.log(uploadUrl)
+
   const handleClick = (event) => {
     event.stopPropagation()
     event.preventDefault()
@@ -16,6 +18,8 @@ const FileInput = ({ children, uploadUrl, onUpload }) => {
     event.stopPropagation()
     event.preventDefault()
     setLoading(true)
+
+    console.log(event.currentTarget.files[0])
 
     const file = new FormData()
     file.append('attachments', event.currentTarget.files[0])
@@ -34,7 +38,7 @@ const FileInput = ({ children, uploadUrl, onUpload }) => {
          }
        })
        .catch(err => {
-         console.log(err)
+         console.log('err', err)
          setLoading(false)
          alert('Ошибка при загрузке изображения. Попробуйте другое изображение.')
        })
