@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom"
-import { PAGES_COMPONENT_NAMES } from 'constants/common'
+import { AppContext, AppProvider } from "components/AppContext"
+import { LINKS, PAGES_COMPONENT_NAMES } from 'constants/common'
 import { ROUTES } from 'constants/routes'
 import LoginPage from "pages/LoginPage"
 import EditorPage from "pages/EditorPage"
 import PochtaBankPage from "pages/PochtaBankPage"
 import HomePage from "pages/HomePage"
+import NotFoundPage from "pages/NotFoundPage"
 import './app.module.sass'
 
 
@@ -21,20 +24,71 @@ const components = {
 }
 
 
+function PrivateRoute({ children, ...rest }) {
+  const auth = useContext(AppContext)
+
+  return (
+     <Route
+        {...rest}
+        render={({ location }) => {
+          console.log(location, auth.isAuthenticated)
+
+          return auth.isAuthenticated ? (
+             children
+          ) : (
+             <Redirect
+                to={{
+                  pathname: LINKS.LOGIN.link,
+                  state: { from: location }
+                }}
+             />
+          )
+        }}
+     />
+  )
+}
+
+const auth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    auth.isAuthenticated = true
+    setTimeout(cb, 100) // fake async
+  },
+  signout(cb) {
+    auth.isAuthenticated = false
+    setTimeout(cb, 100)
+  }
+}
+
 const App = () => {
   return (
-     <Router>
-       <Switch>
-         {ROUTES.map(({ path, componentName, exact, ...props }, i) => (
-            <Route
-               key={i}
-               path={`${path}`}
-               exact={exact}
-               component={components[componentName]}
-            />
-         ))}
-       </Switch>
-     </Router>
+     <AppProvider value={auth}>
+       <Router>
+         <Switch>
+           {ROUTES.map(({
+                          path,
+                          componentName,
+                          exact = true,
+                          public: publicPage = false,
+                          ...props
+                        }, i) => {
+             const Component = components[componentName]
+             console.log(componentName, publicPage)
+
+             return publicPage ? (
+                <Route key={i} path={`${path}`} exact={exact}>
+                  <Component/>
+                </Route>
+             ) : (
+                <PrivateRoute key={i} path={`${path}`} exact={exact}>
+                  <Component/>
+                </PrivateRoute>
+             )
+           })}
+           <Route path={'*'} exact={true} component={NotFoundPage} />
+         </Switch>
+       </Router>
+     </AppProvider>
   )
 }
 

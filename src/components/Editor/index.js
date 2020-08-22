@@ -46,7 +46,8 @@ const prepareData = (data) => {
 
 
 const Editor = ({
-                  data, config = initialConfig, onChange = () => {}
+                  data, config = initialConfig, onChange = () => {
+  }
                 }) => {
   const [state, dispatch] = useReducer(reducer, prepareData({ ...initialState, ...data }))
   const { columns, rows, categories } = state

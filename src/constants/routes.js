@@ -2,18 +2,19 @@ import { LINKS } from "constants/common"
 
 export const ROUTES = [
   {
+    path: LINKS.LOGIN.link,
+    exact: true,
+    componentName: LINKS.LOGIN.componentName,
+    name: 'Логин',
+    hidden: true,
+    public: true
+  },
+  {
     path: LINKS.HOME.link,
     componentName: LINKS.HOME.componentName,
     exact: true,
     name: 'Главная',
     menuPosition: 0
-  },
-  {
-    path: LINKS.LOGIN.link,
-    exact: true,
-    componentName: LINKS.LOGIN.componentName,
-    name: 'Логин',
-    hidden: true
   },
   {
     path: LINKS.EDITOR.link,

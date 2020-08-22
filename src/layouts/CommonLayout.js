@@ -1,18 +1,23 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import Menu from "components/Menu"
+import { AppContext } from "components/AppContext"
+import cn from 'classnames'
 import styles from 'app.module.sass'
 
-class CommonLayout extends Component {
-  render() {
-    return (
-       <div>
-         <Menu/>
-         <div className={styles.layout}>
-           {this.props.children}
-         </div>
+
+const CommonLayout = ({ className, children }) => {
+  const auth = useContext(AppContext)
+
+  return (
+     <div>
+       {auth.isAuthenticated && (
+          <Menu/>
+       )}
+       <div className={cn(styles.layout, className && className)}>
+         {children}
        </div>
-    )
-  }
+     </div>
+  )
 }
 
 export default CommonLayout

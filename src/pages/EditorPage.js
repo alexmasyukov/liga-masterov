@@ -6,8 +6,8 @@ import Editor from "components/Editor"
 import { createCounter } from "helpers"
 import { COLUMN_TYPES } from "constants/common"
 import { ACTION_TYPES } from "store/actionTypes"
-import styles from "components/Editor/editor.module.sass"
 import CommonLayout from "layouts/CommonLayout"
+import styles from "components/Editor/editor.module.sass"
 
 const baseUrl = 'https://xn----7sbitok.xn--p1ai'
 
