@@ -1,13 +1,12 @@
-import React, { useContext, useReducer, useState } from 'react'
-import Btn from "components/Btn"
+import React, { useContext, useReducer } from 'react'
 import { AppContext } from "components/AppContext"
 import {
   useHistory,
   useLocation
 } from "react-router-dom"
 import CommonLayout from "layouts/CommonLayout"
-import styles from 'app.module.sass'
 import Input from "components/Input"
+import styles from 'app.module.sass'
 
 // function AuthButton() {
 //   let history = useHistory();

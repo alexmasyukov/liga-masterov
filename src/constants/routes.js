@@ -27,7 +27,14 @@ export const ROUTES = [
     path: LINKS.POCHTA_BANK.link,
     exact: true,
     componentName: LINKS.POCHTA_BANK.componentName,
-    name: 'Почта-банк заявка',
+    name: '«Почта Банк» заявка',
     menuPosition: 2
+  },
+  {
+    path: LINKS.OTP_BANK.link,
+    exact: true,
+    componentName: LINKS.OTP_BANK.componentName,
+    name: '«Банк ОТП» заявка',
+    menuPosition: 3
   }
 ]

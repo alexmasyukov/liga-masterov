@@ -32,7 +32,7 @@ const PochtaBankPage = () => {
 
   return (
      <CommonLayout>
-       {loading && <h1>Загрузка скриптов банка...</h1>}
+       {loading && <h1>Загрузка скриптов Почтабанка...</h1>}
        {error && <h1>Ошибка скриптов банка! ${error.message}</h1>}
        <div id="pos-credit-container"/>
      </CommonLayout>

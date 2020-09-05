@@ -13,6 +13,8 @@ import EditorPage from "pages/EditorPage"
 import PochtaBankPage from "pages/PochtaBankPage"
 import HomePage from "pages/HomePage"
 import NotFoundPage from "pages/NotFoundPage"
+import OtpBankPage from "pages/OtpBankPage"
+import 'normalize.css'
 import './app.module.sass'
 
 
@@ -20,7 +22,8 @@ const components = {
   [PAGES_COMPONENT_NAMES.HOME_PAGE]: HomePage,
   [PAGES_COMPONENT_NAMES.EDITOR_PAGE]: EditorPage,
   [PAGES_COMPONENT_NAMES.LOGIN_PAGE]: LoginPage,
-  [PAGES_COMPONENT_NAMES.POCHTA_BANK_PAGE]: PochtaBankPage
+  [PAGES_COMPONENT_NAMES.POCHTA_BANK_PAGE]: PochtaBankPage,
+  [PAGES_COMPONENT_NAMES.OTP_BANK_PAGE]: OtpBankPage
 }
 
 
@@ -73,7 +76,6 @@ const App = () => {
                           ...props
                         }, i) => {
              const Component = components[componentName]
-             console.log(componentName, publicPage)
 
              return publicPage ? (
                 <Route key={i} path={`${path}`} exact={exact}>
@@ -85,7 +87,7 @@ const App = () => {
                 </PrivateRoute>
              )
            })}
-           <Route path={'*'} exact={true} component={NotFoundPage} />
+           <Route path={'*'} exact={true} component={NotFoundPage}/>
          </Switch>
        </Router>
      </AppProvider>

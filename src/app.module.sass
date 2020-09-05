@@ -113,5 +113,29 @@ body
   &:disabled
     opacity: .3
 
+.otpPage
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
 
+  h1
+    margin-bottom: 25px
 
+  .block
+    width: 400px
+
+  @media (max-width: 680px)
+    .block
+      width: 100%
+
+  input
+    width: 100%
+    font-size: 18px
+    padding-top: 1.65em
+  label
+    font-size: 75%
+    color: #777777
+    //top: 1.2em
+
+html, body, #app, #app>div
+  height: 100%

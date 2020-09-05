@@ -9,14 +9,14 @@ const CommonLayout = ({ className, children }) => {
   const auth = useContext(AppContext)
 
   return (
-     <div>
+     <>
        {auth.isAuthenticated && (
           <Menu/>
        )}
        <div className={cn(styles.layout, className && className)}>
          {children}
        </div>
-     </div>
+     </>
   )
 }
 
